@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>La maison de Noël - Classe de 5°5</title>
+
+<style>
+
+/* =========================
+   STYLE GENERAL
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Georgia, serif;
+    background: #102c26;
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+h1 {
+    color: #ffe7a3;
+    font-size: 35px;
+    text-shadow: 2px 3px 5px black;
+}
+
+button {
+    font-family: Georgia, serif;
+    cursor: pointer;
+}
+
+/* =========================
+   NEIGE
+========================= */
+
+.neige {
+    position: fixed;
+    top: -20px;
+    color: white;
+    font-size: 20px;
+    animation: tomber 8s linear infinite;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes tomber {
+    0% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(110vh);
+    }
+}
+
+/* =========================
+   EXTERIEUR DE LA MAISON
+========================= */
+
+#exterieur {
+    min-height: 100vh;
+    padding: 30px 15px;
+    background:
+        radial-gradient(circle at top, #285c4d, #102c26 75%);
+}
+
+.jardin {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 500px;
+    margin: 40px auto;
+    background: linear-gradient(#d9efff 0%, #d9efff 65%, #ffffff 65%);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 0 30px #0008;
+}
+
+/* Maison */
+
+.maison {
+    position: absolute;
+    width: 360px;
+    height: 260px;
+    background: #b92e2e;
+    border: 8px solid #7c1717;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.maison:hover {
+    transform: translateX(-50%) scale(1.04);
+}
+
+/* Toit */
+
+.toit {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 220px solid transparent;
+    border-right: 220px solid transparent;
+    border-bottom: 170px solid #4b2420;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toit::after {
+    content: "❄ ❄ ❄ ❄ ❄";
+    position: absolute;
+    top: 145px;
+    left: -160px;
+    width: 320px;
+    color: white;
+    font-size: 25px;
+}
+
+/* Fenêtres */
+
+.fenetre {
+    position: absolute;
+    top: 45px;
+    width: 75px;
+    height: 75px;
+    background: #ffe7a3;
+    border: 7px solid #6b2b1c;
+    box-shadow: 0 0 20px #ffcf54;
+}
+
+.fenetre::before {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background: #6b2b1c;
+    left: 50%;
+}
+
+.fenetre::after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    width: 100%;
+    background: #6b2b1c;
+    top: 50%;
+}
+
+.gauche {
+    left: 35px;
+}
+
+.droite {
+    right: 35px;
+}
+
+/* Porte d'entrée */
+
+.porte-entree {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95px;
+    height: 145px;
+    background: #4c2418;
+    border: 8px solid #32150e;
+    border-radius: 45px 45px 0 0;
+}
+
+.porte-entree::after {
+    content: "●";
+    position: absolute;
+    right: 10px;
+    top: 65px;
+    color: gold;
+    font-size: 18px;
+}
+
+/* Décorations */
+
+.gu irlande {
+    color: gold;
+}
+
+/* =========================
+   INTERIEUR : COULOIR
+========================= */
+
+#interieur {
+    display: none;
+    min-height: 100vh;
+    padding: 25px 15px;
+    background: #15372d;
+}
+
+.couloir {
+    position: relative;
+    max-width: 1100px;
+    min-height: 650px;
+    margin: 30px auto;
+    padding: 25px;
+    border: 10px solid #6b4226;
+    border-radius: 20px;
+    background:
+        linear-gradient(
+            90deg,
+            #6b4226 0%,
+            #b98b5d 15%,
+            #f4dfb6 50%,
+            #b98b5d 85%,
+            #6b4226 100%
+        );
+    box-shadow: inset 0 0 40px #4b2410;
+}
+
+/* Plafond */
+
+.plafond {
+    height: 90px;
+    background: #5b3524;
+    border-bottom: 12px solid #3a2117;
+    margin: -25px -25px 20px;
+    color: #ffe7a3;
+    font-size: 30px;
+    padding-top: 20px;
+}
+
+/* Guirlande */
+
+.guirlande {
+    font-size: 30px;
+    color: #e5bd46;
+    margin: 10px;
+    text-shadow: 0 0 10px gold;
+}
+
+/* Portes */
+
+.portes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 20px;
+}
+
+.porte {
+    width: 160px;
+    height: 270px;
+    background: linear-gradient(90deg, #592d18, #92552e, #592d18);
+    border: 9px solid #3b1b0d;
+    border-radius: 65px 65px 0 0;
+    position: relative;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 8px 15px #0008;
+    transition: 0.3s;
+}
+
+.porte:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 25px gold;
+}
+
+.porte::before {
+    content: "";
+    position: absolute;
+    inset: 15px;
+    border: 3px solid #c69b65;
+    border-radius: 45px 45px 0 0;
+}
+
+.poignee {
+    position: absolute;
+    right: 15px;
+    top: 140px;
+    color: gold;
+    font-size: 20px;
+}
+
+.icone {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+/* Grande porte du fond */
+
+.porte-fond {
+    width: 250px;
+    height: 350px;
+    margin: 20px auto;
+    background: linear-gradient(90deg, #5b1717, #a52a2a, #5b1717);
+    border: 12px solid #4b2014;
+    border-radius: 100px 100px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #ffe7a3;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 0 30px gold;
+    transition: 0.3s;
+}
+
+.porte-fond:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 50px gold;
+}
+
+/* Bouton retour */
+
+.retour {
+    margin: 20px;
+    padding: 15px 25px;
+    background: #b92e2e;
+    border: 3px solid gold;
+    border-radius: 15px;
+    color: white;
+    font-size: 18px;
+}
+
+.retour:hover {
+    background: #e04343;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+
+    .maison {
+        width: 280px;
+    }
+
+    .toit {
+        border-left-width: 170px;
+        border-right-width: 170px;
+    }
+
+    .porte {
+        width: 130px;
+        height: 230px;
+    }
+
+    .porte-fond {
+        width: 200px;
+        height: 300px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NEIGE -->
+
+<div class="neige" style="left:10%; animation-delay:0s">❄</div>
+<div class="neige" style="left:25%; animation-delay:2s">❄</div>
+<div class="neige" style="left:40%; animation-delay:4s">❄</div>
+<div class="neige" style="left:60%; animation-delay:1s">❄</div>
+<div class="neige" style="left:80%; animation-delay:3s">❄</div>
+<div class="neige" style="left:95%; animation-delay:5s">❄</div>
+
+<!-- =========================
+     EXTERIEUR
+========================= -->
+
+<div id="exterieur">
+
+    <h1>🎄 La maison de Noël 🎄</h1>
+
+    <p>
+        Bienvenue dans la maison magique de la classe de 5°5 !
+    </p>
+
+    <div class="jardin">
+
+        <div class="maison" onclick="entrer()">
+
+            <div class="toit"></div>
+
+            <div class="fenetre gauche"></div>
+            <div class="fenetre droite"></div>
+
+            <div class="porte-entree"></div>
+
+        </div>
+
+        <div style="
+            position:absolute;
+            bottom:15px;
+            left:15px;
+            font-size:50px;">
+            🎄
+        </div>
+
+        <div style="
+            position:absolute;
+            bottom:15px;
+            right:15px;
+            font-size:50px;">
+            🎄
+        </div>
+
+    </div>
+
+    <h2>🚪 Clique sur la maison pour entrer !</h2>
+
+</div>
+
+<!-- =========================
+     INTERIEUR
+========================= -->
+
+<div id="interieur">
+
+    <h1>✨ Bienvenue chez toi ! ✨</h1>
+
+    <p>
+        Choisis une porte dans le grand couloir de Noël.
+    </p>
+
+    <div class="couloir">
+
+        <div class="plafond">
+            🕯️ Le grand couloir de Noël 🕯️
+        </div>
+
+        <div class="guirlande">
+            ✨ 🔴 🟡 🟢 ✨ 🔴 🟡 🟢 ✨
+        </div>
+
+        <!-- PORTES DES MATIERES -->
+
+        <div class="portes">
+
+            <a class="porte"
+               href="https://lestonnac.garderlecap.fr/5eme-cours/"
+               target="_blank">
+
+                <span class="icone">📐</span>
+                MATHS
+                <span class="poignee">●</span>
+
+            </a>
+
+            <a class="porte"
+               href="https://padlet.com/katerinbarrera/mi-clase-de-espanol-fumw002raf0turge"
+               target="_blank">
+
+                <span class="icone">🇪🇸</span>
+                ESPAGNOL
+                <span class="poignee">●</span>
+
+            </a>
+
+            <a class="porte"
+               href="https://histoiregeolesto.weebly.com/"
+               target="_blank">
+
+                <span class="icone">🏰</span>
+                HISTOIRE-GÉO
+                <span class="poignee">●</span>
+
+            </a>
+
+            <a class="porte"
+               href="https://kahoot.it/"
+               target="_blank">
+
+                <span class="icone">🎮</span>
+                KAHOOT
+                <span class="poignee">●</span>
+
+            </a>
+
+        </div>
+
+        <div class="guirlande">
+            🎄 ✨ 🎄 ✨ 🎄
+        </div>
+
+        <!-- PORTE DU FOND -->
+
+        <a class="porte-fond"
+           href="https://padlet.com/stanislaslanquetin/classe-des-5-5-s024iore1xm00q37x6bz"
+           target="_blank">
+
+            ⭐
+            <span>TOUT</span>
+            <span style="font-size:18px; margin-top:15px;">
+                Toute la classe
+            </span>
+
+        </a>
+
+    </div>
+
+    <button class="retour" onclick="sortir()">
+        ⬅ Retour à l'extérieur
+    </button>
+
+</div>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+function entrer() {
+
+    document.getElementById("exterieur").style.display = "none";
+
+    document.getElementById("interieur").style.display = "block";
+
+    window.scrollTo(0, 0);
+
+}
+
+function sortir() {
+
+    document.getElementById("interieur").style.display = "none";
+
+    document.getElementById("exterieur").style.display = "block";
+
+    window.scrollTo(0, 0);
+
+}
+
+</script>
+
+</body>
+</html>
+
+
+
+  
+
+
+
